@@ -12,16 +12,12 @@ order_data = pd.read_csv('dataset/order.asc')
 district_data = pd.read_csv('dataset/district.asc')
 disp_data = pd.read_csv('dataset/disp.asc')
 
-# Combinar dados de cliente e empréstimo
 combined_data = pd.merge(account_data, loan_data, on='account_id', how='left')
 
-# Definir uma variável alvo (target) - 'is_default' para indicar inadimplência (1 para inadimplente, 0 para não inadimplente)
 combined_data['is_default'] = combined_data['status'].apply(lambda x: 1 if x == 'B' else 0)
 
-# Selecionar recursos para modelagem (exemplo simplificado)
 features = ['age', 'income', 'loan_amount']
 
-# Selecionar recursos e variável alvo
 data_for_model = combined_data[features + ['is_default']].dropna()  # Remover valores ausentes, se houver
 
 # Dividir os dados em conjunto de treinamento e teste
